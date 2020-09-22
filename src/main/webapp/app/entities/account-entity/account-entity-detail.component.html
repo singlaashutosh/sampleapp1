@@ -1,0 +1,124 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="accountEntity">
+            <h2><span>Account Entity</span> {{ accountEntity.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span>Code</span></dt>
+                <dd>
+                    <span>{{ accountEntity.code }}</span>
+                </dd>
+                <dt><span>Account Entity Name</span></dt>
+                <dd>
+                    <span>{{ accountEntity.accountEntityName }}</span>
+                </dd>
+                <dt><span>Description</span></dt>
+                <dd>
+                    <span>{{ accountEntity.description }}</span>
+                </dd>
+                <dt><span>Opening Balance</span></dt>
+                <dd>
+                    <span>{{ accountEntity.openingBalance }}</span>
+                </dd>
+                <dt><span>Closing Balance</span></dt>
+                <dd>
+                    <span>{{ accountEntity.closingBalance }}</span>
+                </dd>
+                <dt><span>Created At</span></dt>
+                <dd>
+                    <span>{{ accountEntity.createdAt }}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/account-entity', accountEntity.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+            </button>
+        </div>
+        <div>
+    <h2 id="page-heading">
+        <span>Transaction Entities</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-transaction-entity" [routerLink]="['/transaction-entity/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span>
+            Create a new Transaction Entity
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="transactionEntities?.length === 0">
+        <span>No transactionEntities found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="transactionEntities && transactionEntities.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr>
+                    <th scope="col" ><span>ID</span></th>
+                    <th scope="col" ><span>Trans Ammount</span></th>
+                    <th scope="col" ><span>Trans Date</span></th>
+                    <th scope="col" ><span>Trans Type</span></th>
+                    <th scope="col" ><span>Entry Date</span></th>
+                    <th scope="col" ><span>Account Entity</span></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let transactionEntity of transactionEntities ;trackBy: trackId">
+                    <td><a [routerLink]="['/transaction-entity', transactionEntity.id, 'view']">{{ transactionEntity.id }}</a></td>
+                    <td>{{ transactionEntity.transAmmount }}</td>
+                    <td>{{ transactionEntity.transDate | date:'mediumDate' }}</td>
+                    <td>{{ transactionEntity.transType }}</td>
+                    <td>{{ transactionEntity.entryDate | date:'medium' }}</td>
+                    <td>
+                        <div *ngIf="transactionEntity.accountEntity">
+                            <a [routerLink]="['/account-entity', transactionEntity.accountEntity?.id, 'view']" >{{ transactionEntity.accountEntity?.code }}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/transaction-entity', transactionEntity.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/transaction-entity', transactionEntity.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(transactionEntity)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+        
+    </div>
+</div>
