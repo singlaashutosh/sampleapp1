@@ -1,13 +1,13 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="accountEntity">
-            <h2><span>Account Entity</span> {{ accountEntity.id }}</h2>
+            <h2><span>Account Details</span> {{ accountEntity.code }} - {{ accountEntity.accountEntityName }}</h2>
 
             <hr>
 
             <jhi-alert-error></jhi-alert-error>
 
-            <dl class="row-md jh-entity-details">
+           <!--  <dl class="row-md jh-entity-details">
                 <dt><span>Code</span></dt>
                 <dd>
                     <span>{{ accountEntity.code }}</span>
@@ -32,7 +32,7 @@
                 <dd>
                     <span>{{ accountEntity.createdAt }}</span>
                 </dd>
-            </dl>
+            </dl> -->
 
             <button type="submit"
                     (click)="previousState()"
@@ -46,16 +46,38 @@
                 <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
             </button>
         </div>
+         <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr>
+                    <th scope="col" ><span>Code</span></th>
+                    <th scope="col" ><span>Account Entity Name</span></th>
+                    <th scope="col" ><span>Description</span></th>
+                    <th scope="col" ><span>Opening Balance</span></th>
+                    <th scope="col" ><span>Closing Balance</span></th>
+                    <th scope="col"><span>Created At</span></th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>{{ accountEntity.code  }}</td>
+            <td>{{ accountEntity.accountEntityName }}</td>
+            <td>{{ accountEntity.description  }}</td>
+            <td>{{ accountEntity.openingBalance  }}</td>
+            <td>{{  accountEntity.closingBalance  }}</td>
+            <td>{{  accountEntity.createdAt }}</td>
+            </tr>
+            </tbody>
+            </table>
         <div>
     <h2 id="page-heading">
         <span>Transaction Entities</span>
 
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-transaction-entity" [routerLink]="['/transaction-entity/new']">
+      <!--   <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-transaction-entity" [routerLink]="['/transaction-entity/new']">
             <fa-icon icon="plus"></fa-icon>
             <span>
             Create a new Transaction Entity
             </span>
-        </button>
+        </button> -->
     </h2>
 
     <jhi-alert-error></jhi-alert-error>
@@ -75,23 +97,17 @@
                     <th scope="col" ><span>Trans Date</span></th>
                     <th scope="col" ><span>Trans Type</span></th>
                     <th scope="col" ><span>Entry Date</span></th>
-                    <th scope="col" ><span>Account Entity</span></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let transactionEntity of transactionEntities ;trackBy: trackId">
+                <tr *ngFor="let transactionEntity of transactionEntities ">
                     <td><a [routerLink]="['/transaction-entity', transactionEntity.id, 'view']">{{ transactionEntity.id }}</a></td>
                     <td>{{ transactionEntity.transAmmount }}</td>
                     <td>{{ transactionEntity.transDate | date:'mediumDate' }}</td>
                     <td>{{ transactionEntity.transType }}</td>
                     <td>{{ transactionEntity.entryDate | date:'medium' }}</td>
-                    <td>
-                        <div *ngIf="transactionEntity.accountEntity">
-                            <a [routerLink]="['/account-entity', transactionEntity.accountEntity?.id, 'view']" >{{ transactionEntity.accountEntity?.code }}</a>
-                        </div>
-                    </td>
-                    <td class="text-right">
+           <!--          <td class="text-right">
                         <div class="btn-group">
                             <button type="submit"
                                     [routerLink]="['/transaction-entity', transactionEntity.id, 'view']"
@@ -107,13 +123,13 @@
                                 <span class="d-none d-md-inline">Edit</span>
                             </button>
 
-                            <button type="submit" (click)="delete(transactionEntity)"
+                            <button type="submit" 
                                     class="btn btn-danger btn-sm">
                                 <fa-icon icon="times"></fa-icon>
                                 <span class="d-none d-md-inline">Delete</span>
                             </button>
                         </div>
-                    </td>
+                    </td> -->
                 </tr>
             </tbody>
         </table>

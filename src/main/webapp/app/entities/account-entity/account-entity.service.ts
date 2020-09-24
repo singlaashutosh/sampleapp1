@@ -15,6 +15,8 @@ type EntityArrayResponseType = HttpResponse<IAccountEntity[]>;
 export class AccountEntityService {
   public resourceUrl = SERVER_API_URL + 'api/account-entities';
 
+  public resourceTransactionUrl = SERVER_API_URL + 'api/transaction-entities';
+
   constructor(protected http: HttpClient) {}
 
   create(accountEntity: IAccountEntity): Observable<EntityResponseType> {
@@ -46,6 +48,10 @@ export class AccountEntityService {
 
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  }
+
+  public getTransactions(accountId: any): Observable<any> {
+    return this.http.get(this.resourceTransactionUrl + '/account-entities/' + accountId);
   }
 
   protected convertDateFromClient(accountEntity: IAccountEntity): IAccountEntity {
