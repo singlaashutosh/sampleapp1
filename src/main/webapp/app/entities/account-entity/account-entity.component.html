@@ -1,0 +1,71 @@
+<div>
+    <h2 id="page-heading">
+        <span>Account Entities</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-account-entity" [routerLink]="['/account-entity/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span>
+            Create a new Account Entity
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="accountEntities?.length === 0">
+        <span>No accountEntities found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="accountEntities && accountEntities.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr>
+                    <th scope="col" ><span>ID</span></th>
+                    <th scope="col" ><span>Code</span></th>
+                    <th scope="col" ><span>Account Entity Name</span></th>
+                    <th scope="col" ><span>Description</span></th>
+                    <th scope="col" ><span>Opening Balance</span></th>
+                    <th scope="col" ><span>Closing Balance</span></th>
+                    <th scope="col" ><span>Created At</span></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let accountEntity of accountEntities ;trackBy: trackId">
+                    <td><a [routerLink]="['/account-entity', accountEntity.id, 'view']">{{ accountEntity.id }}</a></td>
+                    <td>{{ accountEntity.code }}</td>
+                    <td>{{ accountEntity.accountEntityName }}</td>
+                    <td>{{ accountEntity.description }}</td>
+                    <td>{{ accountEntity.openingBalance }}</td>
+                    <td>{{ accountEntity.closingBalance }}</td>
+                    <td>{{ accountEntity.createdAt | date:'medium' }}</td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/account-entity', accountEntity.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/account-entity', accountEntity.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(accountEntity)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
